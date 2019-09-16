@@ -6,27 +6,31 @@ A python bot that copies all trades in realtime from your primary bitmex account
 - Realtime copy ~1 second.
 
 # Install
-`git clone`
-`cd bitmex-copy-bot`
-`pip install -r requirements.txt`
+
+    git clone
+    cd bitmex-copy-bot
+    pip install -r requirements.txt
 
 # Configure
 Modify your api keys in the config.py file.
 
 Change ENDPOINT from TESTNET_URL to BITMEX_URL if you want to try it directly on bitmex. It's suggested that you try running it on testnet first.
-`ENDPOINT = BITMEX_URL`
+
+    ENDPOINT = BITMEX_URL
 
 API_KEY is the primary bitmex account. Ensure it is read only.
-`API_KEY = 'rCkGLrr2hF'`
-`API_SECRET = 'seiJbiBGLrxrPBmgsV'`
+
+    API_KEY = 'rCkGLrr2hF'
+    API_SECRET = 'seiJbiBGLrxrPBmgsV'
 
 API_KEY2 is secondary bitmex account. Make sure it can read + create order.
-`API_KEY_2 = 'dXNlP_fwgor'`
-`API_SECRET_2 = 'dfPHP8IVHyno-rgPJP2eq'`
+
+    API_KEY_2 = 'dXNlP_fwgor'
+    API_SECRET_2 = 'dfPHP8IVHyno-rgPJP2eq'
 
 
 # Run
-`python run.py`
+    python run.py
 
 # Need help?
 
