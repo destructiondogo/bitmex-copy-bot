@@ -15,7 +15,7 @@ If <3.6, download latest python version.
 
 # Install
 
-    git clone
+    git clone https://github.com/destructiondogo/bitmex-copy-bot.git
     cd bitmex-copy-bot
     pip install -r requirements.txt
 
