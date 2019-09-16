@@ -5,6 +5,14 @@ A python bot that copies all trades in realtime from your primary bitmex account
 - Supports copy of limit orders, market orders, close order, cancellation of orders.
 - Realtime copy ~1 second.
 
+# Compatibility
+Python 3.6+
+Check python version by typing in shell
+
+    python --version
+
+If <3.6, download latest python version.
+
 # Install
 
     git clone
