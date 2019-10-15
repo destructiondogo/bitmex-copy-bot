@@ -51,12 +51,19 @@ def run():
                             if execution['execType'] == 'New':
                                 if execution['ordType'] == 'Limit':
                                     api[follower].place_order_limit(percentage(execution['orderQty'],leader_follower_map[ws_leader][follower]), execution['price'], execution['symbol'],
-                                                          execution['side'], execution['orderID'])
+                                                          execution['side'], execution['orderID'],execution['execInst'])
                                 elif execution['ordType'] == 'Market':
                                     api[follower].place_order_market(percentage(execution['orderQty'],leader_follower_map[ws_leader][follower]), execution['symbol'], execution['side'],
-                                                           execution['orderID'])
+                                                           execution['orderID'],execution['execInst'])
+                                elif execution['ordType'] == 'Stop' or execution['ordType'] == 'StopLimit' or execution['ordType'] == 'MarketIfTouched' or execution['ordType'] == 'LimitIfTouched':
+                                    api[follower].place_order_stop(percentage(execution['orderQty'],leader_follower_map[ws_leader][follower]),execution['ordType'],execution['stopPx'],execution['symbol'],
+                                                            execution['side'], execution['orderID'],execution['execInst'],execution['pegPriceType'],execution['pegOffsetValue'])
                             elif execution['execType'] == 'Canceled':
                                 api[follower].cancelByCl([execution['orderID']])
+                            elif execution['execType'] == 'Trade':
+                                pass
+                            elif execution['execType'] == 'Settlement':
+                                pass  # similar to a filled trade.
             else:
                 #reconnect
                 logger.error("websocket disconnect, restart")

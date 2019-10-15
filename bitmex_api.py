@@ -68,7 +68,7 @@ class BitMEX(object):
         return self._curl_bitmex(api=endpoint, postdict=postdict, verb="POST")
 
     @authentication_required
-    def place_order_limit(self,quantity, price, symbol, side, clOrdID):
+    def place_order_limit(self,quantity, price, symbol, side, clOrdID,execInst):
         endpoint = "order"
 
         postdict = {
@@ -76,36 +76,42 @@ class BitMEX(object):
             'orderQty': quantity,
             'price': price,
             'side': side,
-            'clOrdID': clOrdID
+            'clOrdID': clOrdID,
+            'execInst': execInst
         }
         return self._curl_bitmex(api=endpoint, postdict=postdict, verb="POST")
 
     @authentication_required
-    def place_order_market(self, quantity, symbol, side, clOrdID):
+    def place_order_market(self, quantity, symbol, side, clOrdID,execInst):
         endpoint = "order"
         postdict = {
             'symbol': symbol,
             'orderQty': quantity,
             'ordType': 'Market',
             'side': side,
-            'clOrdID': clOrdID
+            'clOrdID': clOrdID,
+            'execInst': execInst
         }
         return self._curl_bitmex(api=endpoint, postdict=postdict, verb="POST")
 
 
     @authentication_required
-    def place_order_stop(self,quantity, price, symbol):
+    def place_order_stop(self,quantity,ordType, stopPx, symbol,side,clOrdID,execInst,pegPriceType,pegOffsetValue):
         """Place an order."""
-        if price < 0:
+        if stopPx < 0:
             raise Exception("Price must be positive.")
         endpoint = "order"
-        # Generate a unique clOrdID with our prefix so we can identify it.
-        clOrdID = base64.b64encode(uuid.uuid4().bytes).decode('utf-8').rstrip('=\n')
         postdict = {
             'symbol': symbol,
             'orderQty': quantity,
-            'stopPx': price,
-            'clOrdID': clOrdID
+            'ordType': ordType,
+            'stopPx': stopPx,
+            'side': side,
+            'clOrdID': clOrdID,
+            'execInst': execInst,
+            'pegPriceType': pegPriceType,
+            'pegOffsetValue': pegOffsetValue
+
         }
         return self._curl_bitmex(api=endpoint, postdict=postdict, verb="POST")
 
@@ -157,9 +163,10 @@ class BitMEX(object):
             # 404, can be thrown if order canceled does not exist.
             elif response.status_code == 404:
                 if verb == 'DELETE':
-                    print(time.strftime("%d %b %Y %H:%M:%S",time.gmtime()),"Order not found: %s" % postdict['orderID'])
+                    # print(time.strftime("%d %b %Y %H:%M:%S",time.gmtime()),"Order not found: %s" % postdict['orderID'])
+                    print("Order being canceled does not exist")
                     return
-                    print("Unable to contact the BitMEX API (404). ")
+                print("Unable to contact the BitMEX API (404). ")
 
             # 429, ratelimit; cancel orders & wait until X-Ratelimit-Reset
             elif response.status_code == 429:
