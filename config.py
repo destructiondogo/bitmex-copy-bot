@@ -1,5 +1,5 @@
 TESTNET_URL = "https://testnet.bitmex.com/api/v1/"
-MAINNET_URL = "https://bitmex.com/api/v1/"
+MAINNET_URL = "https://www.bitmex.com/api/v1/"
 
 LEADERS = {
     'LEADER_A' : {
