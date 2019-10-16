@@ -62,6 +62,8 @@ def run():
                                 api[follower].cancelByCl([execution['orderID']])
                             elif execution['execType'] == 'Trade':
                                 pass
+                            elif execution['execType'] == 'Replaced':
+                                api[follower].amendOrderByCl(execution["orderID"], percentage(execution["orderQty"],leader_follower_map[ws_leader][follower]), execution["price"], execution["stopPx"], execution["pegOffsetValue"])
                             elif execution['execType'] == 'Settlement':
                                 pass  # similar to a filled trade.
             else:
