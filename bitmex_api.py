@@ -96,7 +96,7 @@ class BitMEX(object):
 
 
     @authentication_required
-    def place_order_stop(self,quantity,ordType, stopPx, symbol,side,clOrdID,execInst,pegPriceType,pegOffsetValue):
+    def place_order_stop(self,quantity,ordType, stopPx, price,symbol,side,clOrdID,execInst,pegPriceType,pegOffsetValue):
         """Place an order."""
         if stopPx < 0:
             raise Exception("Price must be positive.")
@@ -106,6 +106,7 @@ class BitMEX(object):
             'orderQty': quantity,
             'ordType': ordType,
             'stopPx': stopPx,
+            'price': price,
             'side': side,
             'clOrdID': clOrdID,
             'execInst': execInst,

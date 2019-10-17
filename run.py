@@ -56,7 +56,7 @@ def run():
                                     api[follower].place_order_market(percentage(execution['orderQty'],leader_follower_map[ws_leader][follower]), execution['symbol'], execution['side'],
                                                            execution['orderID'],execution['execInst'])
                                 elif execution['ordType'] == 'Stop' or execution['ordType'] == 'StopLimit' or execution['ordType'] == 'MarketIfTouched' or execution['ordType'] == 'LimitIfTouched':
-                                    api[follower].place_order_stop(percentage(execution['orderQty'],leader_follower_map[ws_leader][follower]),execution['ordType'],execution['stopPx'],execution['symbol'],
+                                    api[follower].place_order_stop(percentage(execution['orderQty'],leader_follower_map[ws_leader][follower]),execution['ordType'],execution['stopPx'],execution['price'],execution['symbol'],
                                                             execution['side'], execution['orderID'],execution['execInst'],execution['pegPriceType'],execution['pegOffsetValue'])
                             elif execution['execType'] == 'Canceled':
                                 api[follower].cancelByCl([execution['orderID']])
