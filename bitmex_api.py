@@ -119,20 +119,33 @@ class BitMEX(object):
     @authentication_required
     def cancelByCl(self, clOrdID):
         """Cancel an existing order."""
-        api = "order"
+        endpoint = "order"
         postdict = {
             'clOrdID': clOrdID,
         }
-        return self._curl_bitmex(api=api, postdict=postdict, verb="DELETE")
+        return self._curl_bitmex(api=endpoint, postdict=postdict, verb="DELETE")
 
     @authentication_required
     def cancel(self, orderID):
         """Cancel an existing order."""
-        api = "order"
+        endpoint = "order"
         postdict = {
             'orderID': orderID,
         }
-        return self._curl_bitmex(api=api, postdict=postdict, verb="DELETE")
+        return self._curl_bitmex(api=endpoint, postdict=postdict, verb="DELETE")
+
+    @authentication_required
+    def amendOrderByCl(self, origClOrdID, orderQty, price, stopPx, pegOffsetValue):
+        """Amend an existing order."""
+        endpoint = "order"
+        postdict = {
+            'origClOrdID': origClOrdID,
+            'orderQty': orderQty,
+            'price': price,
+            'stopPx': stopPx,
+            'pegOffsetValue': pegOffsetValue,
+        }
+        return self._curl_bitmex(api=endpoint, postdict=postdict, verb="PUT")
 
     def _curl_bitmex(self, api, query=None, postdict=None, timeout=3, verb=None):
         """Send a request to BitMEX Servers."""
