@@ -1,3 +1,5 @@
+import sys
+import os
 import logging
 from time import sleep
 
@@ -7,8 +9,6 @@ from config import LEADERS, FOLLOWERS
 
 
 def run():
-    logger = setup_logger()
-
     ws = {}
     api = {}
 
@@ -93,5 +93,28 @@ def setup_logger():
     return logger
 
 
+def main():
+    logger.info(">>> Starting BitMEX COPY BOT...")
+
+    while True:
+        try:
+            # Start the bot
+            run()
+        except KeyboardInterrupt:
+            # User quit (Ctrl+C)
+            logger.info(">>> Ctrl+C detected! Shutting down...")
+            try:
+                sys.exit(0)
+            except SystemExit:
+                os._exit(0)
+        except Exception as e:
+            # Other exception
+            logger.exception(e)
+            logger.info(">>> Error occurred. The bot will restart in 5 seconds...")
+            sleep(5)
+            main()
+
+
 if __name__ == "__main__":
-    run()
+    logger = setup_logger()
+    main()
