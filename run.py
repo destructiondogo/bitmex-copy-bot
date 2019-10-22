@@ -25,7 +25,7 @@ def run():
     for leader in LEADERS:
         ws[leader] = BitMEXWebsocket(endpoint=LEADERS[leader]['ENDPOINT'], symbol="",
                                      api_key=LEADERS[leader]['API_KEY'], api_secret=LEADERS[leader]['API_SECRET'])
-        logger.info("Instrument data: %s" % ws[leader].get_instrument())
+        # logger.info("Instrument data: %s" % ws[leader].get_instrument())
 
     for follower in FOLLOWERS:
         api[follower] = BitMEX(base_url=FOLLOWERS[follower]['ENDPOINT'], apiKey=FOLLOWERS[follower]['API_KEY'], apiSecret=FOLLOWERS[follower]['API_SECRET'])
@@ -39,12 +39,14 @@ def run():
 
             if ws[ws_leader].ws.sock.connected:
                 # logger.info("Market Depth: %s" % ws.market_depth())
+                sleep(0.1)
                 executions = ws[ws_leader].executions()
 
                 for execution in executions:
                     execID = execution['execID']
                     if execID not in executions_copied:
                         executions_copied[execID] = execution
+                        logger.info(f">>> Execution data: {execution}\n")
 
                         for follower in leader_follower_map[ws_leader]:
 
