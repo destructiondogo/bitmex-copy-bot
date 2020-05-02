@@ -81,10 +81,10 @@ class BitMEXWebsocket:
         self.logger.info('Connected to WS.')
 
         # Connected. Wait for partials
-        self.__wait_for_symbol(symbol)
-        if api_key:
-            self.__wait_for_account()
-        self.logger.info('Got all market data. Starting.')
+        # self.__wait_for_symbol(symbol)
+        # if api_key:
+        #     self.__wait_for_account()
+        # self.logger.info('Got all market data. Starting.')
 
     def exit(self):
         '''Call this to exit - will close websocket.'''
@@ -192,7 +192,7 @@ class BitMEXWebsocket:
         '''
 
         # You can sub to orderBookL2 for all levels, or orderBook10 for top 10 levels & save bandwidth
-        symbolSubs = ["execution", "instrument", "order", "orderBookL2", "position", "quote", "trade"]
+        symbolSubs = ["execution"] #, "instrument", "order", "orderBookL2", "position", "quote", "trade"]
         genericSubs = ["margin"]
 
         subscriptions = [sub + ':' + self.symbol for sub in symbolSubs]
