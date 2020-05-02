@@ -2,7 +2,10 @@
 
 A python bot that copies all trades in realtime from your primary bitmex account to secondary using bitmex api.
 - Supports copy of all instruments (XBTUSD, XRPU19 etc)
-- Supports copy of limit orders, market orders, close order, cancellation of orders.
+- Supports copy of all order types : limit orders, market orders, close order, cancellation of orders, stop orders and trailing stops.
+- Copy order amendments(for both drag order on UI and panel amend)
+- Copy a percentage or a ratio of primary account(can be used for leverage)
+- Copy to/from multiple accounts.
 - Realtime copy ~1 second.
 
 # Compatibility
@@ -24,17 +27,17 @@ Modify your api keys in the config.py file.
 
 Change ENDPOINT from TESTNET_URL to BITMEX_URL if you want to try it directly on bitmex. It's suggested that you try running it on testnet first.
 
-    ENDPOINT = BITMEX_URL
+    ENDPOINT : BITMEX_URL
 
-API_KEY is the primary bitmex account. Ensure it is read only.
+LEADERS are the primary bitmex accounts. Create key here https://www.bitmex.com/app/apiKeys
 
-    API_KEY = 'rCkGLrr2hF'
-    API_SECRET = 'seiJbiBGLrxrPBmgsV'
+    'API_KEY' : 'rCkGLrr2hF',
+    'API_SECRET' : 'seiJbiBGLrxrPBmgsV'
 
-API_KEY2 is secondary bitmex account. Make sure it can read + create order.
+FOLLOWERS are the copiers. Make sure api keys have both read + modify order access.
 
-    API_KEY_2 = 'dXNlP_fwgor'
-    API_SECRET_2 = 'dfPHP8IVHyno-rgPJP2eq'
+FOLLOWS can be used to follow multiple leaders with different percentage quantities.
+If leader creates a 1000 quantity buy order, follower with 30% follow will create 300 quantity buy order.
 
 
 # Run
@@ -45,7 +48,7 @@ API_KEY2 is secondary bitmex account. Make sure it can read + create order.
 DM on twitter for any errors/suggestions/help.
 [https://twitter.com/destructionDogo](https://twitter.com/destructionDogo)
 
-# Features coming in few days
-- Copy only a percentage of primary account
-- Copy Stops and Trailing stops
-- Copy to/from multiple accounts.
+# Independent contributors
+- [https://github.com/tolgamorf](https://github.com/tolgamorf) 
+    Added support for amending orders, optimisation of bot, bot restart if websocket disconnects, testing the bot.
+
