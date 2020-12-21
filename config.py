@@ -42,3 +42,7 @@ FOLLOWERS = {
 
     }
 }
+
+#add symbols as needed
+
+SYMBOLS = ['XBTUSD','ETHUSD','LTCUSD','XBTH21']

@@ -6,6 +6,7 @@ from time import sleep
 from bitmex_api import BitMEX
 from bitmex_websocket import BitMEXWebsocket
 from config import LEADERS, FOLLOWERS
+from config import SYMBOLS
 
 
 def run():
@@ -23,7 +24,7 @@ def run():
 
     # Instantiating the WS will make it connect. Be sure to add your api_key/api_secret.
     for leader in LEADERS:
-        ws[leader] = BitMEXWebsocket(endpoint=LEADERS[leader]['ENDPOINT'], symbol="",
+        ws[leader] = BitMEXWebsocket(endpoint=LEADERS[leader]['ENDPOINT'], symbol=SYMBOLS,
                                      api_key=LEADERS[leader]['API_KEY'], api_secret=LEADERS[leader]['API_SECRET'])
         # logger.info("Instrument data: %s" % ws[leader].get_instrument())
 

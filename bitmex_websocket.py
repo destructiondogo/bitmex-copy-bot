@@ -195,7 +195,12 @@ class BitMEXWebsocket:
         symbolSubs = ["execution"] #, "instrument", "order", "orderBookL2", "position", "quote", "trade"]
         genericSubs = ["margin"]
 
-        subscriptions = [sub + ':' + self.symbol for sub in symbolSubs]
+        subscriptions = []
+
+        for sub in symbolSubs:
+            for symbol in self.symbol:
+                subscriptions.append(sub + ':' + symbol)
+
         subscriptions += genericSubs
 
         urlParts = list(urllib.parse.urlparse(self.endpoint))
@@ -285,7 +290,7 @@ class BitMEXWebsocket:
 
     def __on_open(self):
         '''Called when the WS opens.'''
-        self.logger.debug("Websocket Opened.")
+        self.logger.info("Websocket Opened.")
 
     def __on_close(self):
         '''Called on websocket close.'''
